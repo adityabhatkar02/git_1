@@ -8,11 +8,13 @@ function App() {
   const handleClick = (value) => {
     setInput(input + value);
   };
-  
+
   // Handle equal button to evaluate expression
   const handleEqual = () => {
     try {
-      setInput(eval(input).toString()); // Use eval to evaluate the expression
+      // Replace percentage operator "%" with "/100" for calculation
+      const updatedInput = input.replace(/%/g, '/100');
+      setInput(eval(updatedInput).toString()); // Use eval to evaluate the expression
     } catch (error) {
       setInput('Error');
     }
@@ -48,6 +50,8 @@ function App() {
         <button onClick={() => handleClick('.')}>.</button>
         <button onClick={handleEqual}>=</button>
         <button onClick={() => handleClick('+')}>+</button>
+        
+        <button onClick={() => handleClick('%')}>%</button> {/* Add the percentage button */}
         
         <button className="clear" onClick={handleClear}>C</button>
       </div>
